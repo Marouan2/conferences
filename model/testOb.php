@@ -45,7 +45,7 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC))
 echo "<br>================update 4===========================<br><br>";
 
 
-$res=$conf->modifierConference(4,"fdddddddddddddddd"," aucin",6,3,"innactive");
+$res=$conf->modifierConference(1,"fdddddddddddddddd"," aucin",6,3,"innactive");
 if($res)
 {
     echo "update c fait";
