@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samih
- * Date: 07/03/16
- * Time: 12:25
- */
 
-class ParticiperConference {
-
+class DAOParticiperConference {
 
     private $db;
 
@@ -18,15 +11,15 @@ class ParticiperConference {
 
 
     //insert
-    public function ajoutPartiConference($id_per, $id_con, $typeparticipant_pconf, $date_pconf)
+    public function ajoutPartiConference(ParticiperConference $pConf)
     {
         try
         {
-            $stmt = $this->db->prepare("INSERT INTO participer_conference(id_per, id_con, typeparticipant_pconf, date_pconf) VALUES(:1, :2, :3, :4)");
-            $stmt->bindparam(":1",$id_per);
-            $stmt->bindparam(":2",$id_con);
-            $stmt->bindparam(":3",$typeparticipant_pconf);
-            $stmt->bindparam(":4",$date_pconf);
+            $stmt = $this->db->prepare("INSERT INTO participer_conference (id_per,id_sc,typeparticipant_pconf,date_pconf) VALUES(:id_per, :id_sc, :typeparticipant_pconf, :date_pconf)");
+            $stmt->bindValue(":id_per",$pConf->getId_per());
+            $stmt->bindValue(":id_sc",$pConf->getId_sc());
+            $stmt->bindValue(":typeparticipant_pconf",$pConf->getTypeParticipant());
+            $stmt->bindValue(":date_pconf",$pConf->getDate_pconf());
 
 
             $stmt->execute();
@@ -51,16 +44,16 @@ class ParticiperConference {
 
 
     //update
-    public function modifierPartiConference($id_pconf,$id_per, $id_con, $typeparticipant_pconf, $date_pconf)
+    public function modifierPartiConference(ParticiperConference $pConf)
     {
         try
         {
-            $stmt = $this->db->prepare("UPDATE participer_conference SET id_per=:1, id_con=:2, typeparticipant_pconf=:3, date_pconf=:4 WHERE id_pconf=:5");
-            $stmt->bindparam(":1",$id_per);
-            $stmt->bindparam(":2",$id_con);
-            $stmt->bindparam(":3",$typeparticipant_pconf);
-            $stmt->bindparam(":4",$date_pconf);
-            $stmt->bindparam(":5",$id_pconf);
+            $stmt = $this->db->prepare("UPDATE participer_conference SET id_per=:id_per, id_sc=:id_sc, typeparticipant_pconf=:typeparticipant_pconf, date_pconf=:date_pconf WHERE id_pconf=:id_pconf");
+           $stmt->bindValue(":id_per",$pConf->getId_per());
+            $stmt->bindValue(":id_sc",$pConf->getId_sc());
+            $stmt->bindValue(":typeparticipant_pconf",$pConf->getTypeParticipant());
+            $stmt->bindValue(":date_pconf",$pConf->getDate_pconf());
+            $stmt->bindValue(":id_pconf",$pConf->getId_pconf());
 
 
             $stmt->execute();
@@ -78,14 +71,14 @@ class ParticiperConference {
     public function supprimerPartiConference($id)
     {
         $stmt = $this->db->prepare("DELETE FROM participer_conference WHERE id_pconf=:id");
-        $stmt->bindparam(":id",$id);
+        $stmt->bindValue(":id",$id);
         $stmt->execute();
         return true;
     }
 
 
 //select all
-    public function listePartiConference()
+    public function listePartiConferences()
     {
         $stmt = $this->db->prepare("select * from participer_conference");
         $stmt->execute();

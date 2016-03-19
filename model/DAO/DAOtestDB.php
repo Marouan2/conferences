@@ -1,21 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samih
- * Date: 06/03/16
- * Time: 13:21
- */
-
 include_once 'conf/_db_con.php';
 include_once 'Personne.php';
 include_once'Conference.php';
 include_once'conf/_fonction.php';
-$pers = new Personne($db_instance);
 
-$conf=new Conference($db_instance);
-$res=$conf->ajoutConference(genereCode()," gestion des base no SQL"," aucin",1,3,"innactive");
-/*$res=$pers->create("F","Fatou", "Idrissa",  "fat@yahoo.fr", "0765874323", "Enseignant chercheur", strftime('%Y-%m-%d'), "encours" );
-  */  if($res)
+$db = new PDO('mysql:host=localhost;dbname=conference', 'root', '');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // On émet une alerte à chaque fois qu'une requête a échoué.
+$pers = new Personne($db);
+
+$conf=new Conference($db);
+$res=$conf->ajoutConference(" gestion des base no SQL"," aucin","djjdjk","jkjkjkkj","innactive");
+
+   if($res)
     {
         echo "Inser c fait";
 
@@ -45,7 +41,7 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC))
 echo "<br>================update 4===========================<br><br>";
 
 
-$res=$conf->modifierConference(1,"fdddddddddddddddd"," aucin",6,3,"innactive");
+$res=$conf->modifierConference(1,"fdddddddddddddddd"," aucin","hhhhjajh","klklkl","innactive");
 if($res)
 {
     echo "update c fait";
