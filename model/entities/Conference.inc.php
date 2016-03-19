@@ -9,23 +9,23 @@ class Conference
 
 
 
-  public function GetId()
+  public function id()
    {
      return $this->_id;
    }
-  public function getCodeConf()
+  public function codeConf()
    {
      return $this->_codeConf;
    }
-  public function getLibelleConf()
+  public function libelleConf()
    {
      return $this->_libelleConf;
    }
-  public function getDescriptionConf()
+  public function descriptionConf()
    {
      return $this->_descriptionConf;
    }
-  public function getEtatConf()
+  public function etatConf()
    {
      return $this->_etatConf;
    }
@@ -40,7 +40,8 @@ class Conference
 
   public function setCodeConf($codeConf)
   {
-    
+    // On vérifie qu'il s'agit bien d'une chaîne de caractères.
+    // Dont la longueur est inférieure à 30 caractères.
     if (is_string($codeConf) && strlen($codeConf) <= 30)
     {
       $this->_codeConf = $codeConf;
